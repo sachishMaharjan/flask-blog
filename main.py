@@ -1,6 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 from post import Post
+from smtplib import SMTP
+
+RECEIVER_EMAIL = "programmer.sachish@gmail.com"
+SENDER_EMAIL = "programmer.sachish@gmail.com"
+PASSWORD = "Test543210"
 
 app = Flask(__name__)
 
@@ -31,9 +36,29 @@ def get_about():
     return render_template('about.html')
 
 
-@app.route('/contact')
+@app.route('/contact', methods=['POST', 'GET'])
 def get_contact():
-    return render_template('contact.html')
+    heading = "contact me"
+    if request.method == 'POST':
+        heading = "Message sent successfully"
+        data = request.form
+        with SMTP("smtp.gmail.com") as connection:
+            connection.starttls()
+            connection.login(user=SENDER_EMAIL, password=PASSWORD)
+            connection.sendmail(
+                from_addr=SENDER_EMAIL,
+                to_addrs=RECEIVER_EMAIL,
+                msg=f"Subject:From Blog Website\n\n {data['message']}\n Number={data['phone']}"
+            )
+        return render_template('contact.html', heading=heading)
+    else:
+        return render_template('contact.html', heading=heading)
+
+
+# @app.route("/form-entry", methods=['POST', 'GET'])
+# def receive_data():
+#     if request.method == 'POST':
+#         return '<h1> Message sent Successfully.</h1>'
 
 
 if __name__ == "__main__":
