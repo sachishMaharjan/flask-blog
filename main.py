@@ -9,7 +9,7 @@ PASSWORD = "Test543210"
 
 app = Flask(__name__)
 
-response = requests.get("https://api.npoint.io/43644ec4f0013682fc0d")
+response = requests.get("https://api.npoint.io/28097c873466e87a160b")
 all_posts = response.json()
 posts_list = []
 for post in all_posts:
