@@ -3,9 +3,9 @@ import requests
 from post import Post
 from smtplib import SMTP
 
-RECEIVER_EMAIL = "programmer.sachish@gmail.com"
-SENDER_EMAIL = "programmer.sachish@gmail.com"
-PASSWORD = "Test543210"
+RECEIVER_EMAIL = "Your email"
+SENDER_EMAIL = "Your email"
+PASSWORD = "Your Password"
 
 app = Flask(__name__)
 
